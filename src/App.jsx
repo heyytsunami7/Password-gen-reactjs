@@ -28,78 +28,74 @@ function App() {
     PasswordGenerator()
   },[length,integer,char,setPassword])
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-gray-800 rounded-xl shadow-lg p-6">
+  <div className="min-h-screen bg-stone-100 flex items-center justify-center p-4">
+    <div className="w-full max-w-sm bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
 
-        <h1 className="text-3xl font-bold text-center text-orange-400 mb-6">
-          Password Generator
-        </h1>
+      {/* Header */}
+      <div className="bg-orange-500 px-6 py-5">
+        <h1 className="text-white font-semibold text-lg">Password Generator</h1>
+        <p className="text-orange-200 text-xs mt-0.5">Strong, unique, ready to use</p>
+      </div>
 
-        <div className="flex mb-5">
+      {/* Body */}
+      <div className="p-5 space-y-4">
+
+        {/* Password block */}
+        <div className="bg-stone-50 border border-stone-200 rounded-xl p-4">
+          <p className="text-xs text-stone-400 mb-1.5">Your password</p>
           <input
-            type="text"
-            readOnly
-            placeholder="Generated Password"
-            value={password} ref={passwordRef}
-            className="flex-1 px-4 py-2 rounded-l-lg bg-gray-700 text-white outline-none"
+            ref={passwordRef} type="text" readOnly value={password}
+            className="w-full bg-transparent font-mono text-sm text-stone-800 tracking-wider outline-none mb-3"
           />
-
           <button onClick={CopytoClipboard}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-lg transition"
-          >
-            Copy
+            className="w-full bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white text-sm font-medium py-2 rounded-lg transition-all">
+            Copy to clipboard
           </button>
         </div>
 
-        <div className="mb-5">
-          <label className="block text-gray-300 mb-2">
-            Password Length
+        {/* Length */}
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <label className="text-sm font-medium text-stone-600">Length</label>
+            <span className="text-xs font-mono font-semibold text-stone-800 bg-stone-100 border border-stone-200 px-2 py-0.5 rounded-md">
+              {length}
+            </span>
+          </div>
+          <input type="range" min="8" max="40" value={length}
+            onChange={(e) => setLength(Number(e.target.value))}
+            className="w-full accent-orange-500 cursor-pointer" />
+          <div className="flex justify-between text-[10px] text-stone-400 mt-1">
+            <span>8</span><span>40</span>
+          </div>
+        </div>
+
+        <hr className="border-stone-100" />
+
+        {/* Options */}
+        <div>
+          <p className="text-[10px] text-stone-400 uppercase tracking-widest font-medium mb-2.5">Include</p>
+          <label className="flex items-center gap-3 mb-2 cursor-pointer">
+            <input type="checkbox" className="w-4 h-4 accent-orange-500 cursor-pointer"
+              onChange={() => intSelected(p => !p)} />
+            <span className="text-sm text-stone-600">Numbers (0–9)</span>
           </label>
-
-          <input
-            type="range"
-            min="8"
-            max="40"
-            className="w-full cursor-pointer"
-            value={length}
-            onChange={(e)=>{setLength(e.target.value)}}
-          />
-          <label htmlFor="" className="block text-gray-300 mb-2">Length : {length}</label>
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" className="w-4 h-4 accent-orange-500 cursor-pointer"
+              onChange={() => charSelected(p => !p)} />
+            <span className="text-sm text-stone-600">Symbols (!@#$...)</span>
+          </label>
         </div>
 
-        <div className="flex items-center justify-between text-gray-300">
-
-          <div className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              id="numbers"
-              className="w-4 h-4" onChange={() => {
-              intSelected((prev) => !prev);
-          }}
-            />
-            <label htmlFor="numbers">
-              Numbers
-            </label>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              id="characters"
-              className="w-4 h-4" onChange={() => {
-                  charSelected((prev) => !prev )
-              }}
-            />
-            <label htmlFor="characters">
-              Characters
-            </label>
-          </div>
-
-        </div>
+        {/* Regenerate */}
+        <button onClick={PasswordGenerator}
+          className="w-full py-2.5 text-sm text-stone-500 hover:text-stone-800 hover:bg-stone-50 border border-stone-200 hover:border-stone-300 rounded-xl transition-all">
+          Generate new password
+        </button>
 
       </div>
     </div>
-  )
+  </div>
+)
 }
 
 export default App 
